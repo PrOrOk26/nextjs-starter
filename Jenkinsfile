@@ -1,7 +1,10 @@
 pipeline {
-  agent any
-    
-  tools {nodejs "default-node-js"}
+  agent {
+    docker {
+      image 'node:lts-bullseye-slim' 
+      args '-p 3000:3000' 
+    }
+  }
     
   stages {
         
@@ -26,7 +29,7 @@ pipeline {
             
     stage('Run') {
       steps {
-        sh 'yarn start'
+        sh 'yarn start &'
       }
     }
   }
